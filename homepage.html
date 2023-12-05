@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a31dbe1c6d.js" crossorigin="anonymous">
+
+
+
+    </script>
+
+    <!-- Custom styling -->
+    <link rel="stylesheet" type="text/css" href="homepage.css">
+    <style>
+        #blog-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slide-show {
+            width: 60%;
+            padding: 20px;
+            margin: 10px;
+            /* border: 1px solid #ccc; */
+            border-radius: 5px;
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+            background-color: #fff;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .title {
+            color: #3a414a;
+            letter-spacing: .2px;
+            font-family: sans-serif;
+        }
+
+        .active {
+            opacity: 1;
+            transform: translateX(0);
+            background-color: #e8e8e8;
+        }
+    </style>
+    <title>WalkiThot</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <h1>
+                    <span class="walki">Walki</span>
+                    <span class="thot">Thot</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <!-- <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Our Team</a></li> -->
+                    <li><a href="#">About</a></li>
+                    <li><a href="signup.html">Signup</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <!-- <li>
+                                            <a href="#">Write</a>
+                                        </li> -->
+                </ul>
+            </nav>
+            <input class="nav_bar_search" placeholder="Search"></input>
+        </div>
+        <!-- <i class="fas fa-bars menu-toggle" onclick="toggleMenu()"></i> -->
+
+    </header>
+
+
+    <script type="module" defer>
+        import blogData from './blog.js';
+
+        // Access and use the blogData object as needed
+        const blogContent = document.getElementById('blog-content');
+        const sections = blogData.sections.slice(0, 3);
+        let index = 0;
+
+        // Function to display each section with a delay
+        function displaySections() {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'slide-show';
+            sectionDiv.innerHTML = `
+        <div class='content-box'>
+            <h2 class='title'>${sections[index].title}</h2>
+            <div class='subText'>${sections[index].text}</div>
+            <p>By: ${sections[index].author}</p>
+        </div>
+    `;
+
+
+            // Add 'active' class to the section
+            sectionDiv.classList.add('active');
+            blogContent.innerHTML = '';
+            blogContent.appendChild(sectionDiv);
+
+            // Remove 'active' class after a delay
+            setTimeout(() => {
+                sectionDiv.classList.remove('active');
+            }, 5000); // Change the delay as needed (in milliseconds)
+
+            // Move to the next section or loop back to the first one
+            index = (index + 1) % sections.length;
+        }
+
+        // Display the first section
+        displaySections();
+
+        // Set up an infinite loop to display sections
+        setInterval(() => {
+            displaySections();
+        }, 5000); // Change the
+
+    </script>
+
+
+
+    <script type="module" defer>
+        import blogData from './blog.js';
+
+        // Access and use the blogData object as needed
+        const recentPost = document.getElementById('recent-post');
+        const blogSection = blogData.sections;
+        const postSection = blogSection.slice(blogSection.length - 3, blogSection.length);
+
+        // Function to display each post
+
+        recentPost.innerHTML = ''; // Clear previous content
+
+        postSection.forEach(item => {
+            const recentPostDiv = document.createElement('div');
+            recentPostDiv.className = 'newDiv';
+            recentPostDiv.innerHTML = `
+            <div class='flex'>
+              •  <h2 class='recent_post_title'>${item.title}</h2>
+                <p>By: ${item.author}</p>
+            </div>
+            
+            `;
+
+            recentPost.appendChild(recentPostDiv);
+        });
+
+
+        // Display recent posts
+
+    </script>
+    <script type="module" defer>
+        import blogData from './blog.js';
+
+        // Access and use the blogData object as needed
+        const category = document.getElementById('categories');
+        const categorySection = blogData.tags;
+
+        // Function to display each post
+        console.log(categorySection);
+        category.innerHTML = ''; // Clear previous content
+
+        const categories = document.createElement('div');
+        categories.className = 'newDiv';
+
+        // Loop through categories and create HTML content
+        categorySection.forEach(categoryItem => {
+            categories.innerHTML += `
+            <div >
+                <p class='category_item'>${categoryItem}</p>
+            </div>
+        `;
+        });
+
+        category.appendChild(categories);
+
+        // Display categories
+    </script>
+
+
+
+
+
+    <script type="module" defer>
+        import blogData from './blog.js';
+
+        // Access and use the blogData object as needed
+        const trendingPost = document.getElementById('trending-post'); // Corrected ID here
+        const trendingSection = blogData.sections;
+        const trending = trendingSection.slice(trendingSection.length - 3, trendingSection.length);
+
+        // Function to display each post
+        trendingPost.innerHTML = ''; // Clear previous content
+
+        trending.forEach(item => {
+
+            const trendingPostDiv = document.createElement('div');
+            trendingPostDiv.className = 'newDi';
+            trendingPostDiv.innerHTML = `
+            <div class='flex'>
+                •  <h2 class='recent_post_title'>${item.title}</h2>
+                <p>By: ${item.author}</p>
+            </div>
+        `;
+
+            trendingPost.appendChild(trendingPostDiv);
+        });
+
+        // Display trending posts
+    </script>
+
+    <div id="blog-content">
+        <!-- This div will be populated dynamically -->
+    </div>
+
+
+    <!--page wrapper-->
+
+    <div class="page-wrapper">
+        <!--carousel-->
+        <div class="post-slider">
+            <h1 class="slider-title">Recent Posts</h1>
+            <i.class="fas fa-chevron-left prev"></i>
+                <i.class="fas fa-chevron-right next"></i>
+
+
+
+                    <div id="recent-post">
+
+                    </div>
+                    <!-- 
+                    <div class="post-wrapper">
+                        <div class="post">
+                            <img src="images/image lighted bulb.jpg" alt="" class="slider-image">
+                            <div class="post-info">
+                                <h4><a href="single.html">Finding your way around ALX</a></h4>
+                                <i class="far fa-user">Opeyemi Oyebamiji</i>
+                                &nbsp;
+                                <i class="far.fa-calendar">Nov 27, 2023 </i>
+                            </div>
+                        </div>
+
+                        <div class="post">
+                            <img src="images/image lighted bulb.jpg" alt="" class="slider-image">
+                            <div class1="post-info">
+                                <h4><a href="single.html">Finding your way around ALX</a></h4>
+                                <i class="far fa-user">Opeyemi Oyebamiji</i>
+                                &nbsp;
+                                <i class="far.fa-calendar">Nov 27, 2023 </i>
+                            </div>
+                        </div>
+
+                        <div class="post">
+                            <img src="images/image lighted bulb.jpg" alt="" class="slider-image">
+                            <div class="post-info">
+                                <h4><a href="single.html">Finding your way around ALX</a></h4>
+                                <i class="far fa-user">Opeyemi Oyebamiji</i>
+                                &nbsp;
+                                <i class="far.fa-calendar">Nov 27, 2023 </i>
+                            </div>
+                        </div>
+
+                        <div class="post">
+                            <img src="images/image lighted bulb.jpg" alt="" class="slider-image">
+                            <div class="post-info">
+                                <h4><a href="single.html">Finding your way around ALX</a></h4>
+                                <i class="far fa-user">Opeyemi Oyebamiji</i>
+                                &nbsp;
+                                <i class="far fa-calendar">Nov 27, 2023 </i>
+                            </div>
+                        </div>
+                    </div> -->
+        </div>
+        <div id="categories">
+
+        </div>
+
+        <!--//carousel-->
+
+    </div>
+
+    <div class="page-wrapper">
+        <!--carousel-->
+        <div class="post-slider2">
+            <h1 class="slider-title">Recent Posts</h1>
+            <i.class="fas fa-chevron-left prev"></i>
+                <i.class="fas fa-chevron-right next"></i>
+
+
+
+                    <div id="trending-post">
+
+                    </div>
+                    <!-- 
+                    <div class="post-wrapper">
+                        <div class="post">
+                            <img src="images/image lighted bulb.jpg" alt="" class="slider-image">
+                            <div class="post-info">
+                                <h4><a href="single.html">Finding your way around ALX</a></h4>
+                                <i class="far fa-user">Opeyemi Oyebamiji</i>
+                                &nbsp;
+                                <i class="far.fa-calendar">Nov 27, 2023 </i>
+                            </div>
+                        </div>
+
+                        <div class="post">
+                            <img src="images/image lighted bulb.jpg" alt="" class="slider-image">
+                            <div class1="post-info">
+                                <h4><a href="single.html">Finding your way around ALX</a></h4>
+                                <i class="far fa-user">Opeyemi Oyebamiji</i>
+                                &nbsp;
+                                <i class="far.fa-calendar">Nov 27, 2023 </i>
+                            </div>
+                        </div>
+
+                        <div class="post">
+                            <img src="images/image lighted bulb.jpg" alt="" class="slider-image">
+                            <div class="post-info">
+                                <h4><a href="single.html">Finding your way around ALX</a></h4>
+                                <i class="far fa-user">Opeyemi Oyebamiji</i>
+                                &nbsp;
+                                <i class="far.fa-calendar">Nov 27, 2023 </i>
+                            </div>
+                        </div>
+
+                        <div class="post">
+                            <img src="images/image lighted bulb.jpg" alt="" class="slider-image">
+                            <div class="post-info">
+                                <h4><a href="single.html">Finding your way around ALX</a></h4>
+                                <i class="far fa-user">Opeyemi Oyebamiji</i>
+                                &nbsp;
+                                <i class="far fa-calendar">Nov 27, 2023 </i>
+                            </div>
+                        </div>
+                    </div> -->
+        </div>
+        <!--//carousel-->
+
+    </div>
+
+    <!--//page wrapper-->
+
+    <!--footer-->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about"></div>
+            <div class="footer-section links"></div>
+            <div class="footer-section contact-form"></div>
+        </div>
+        <!-- <div class="footer-bottom">
+            &copy; Walkithot | Designed by Ope
+        </div> -->
+    </div>
+
+    <!--Slick carousel-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- JavaScript for sidebar toggle -->
+    <script src="static/script.js"></script>
+</body>
+
+</html>
